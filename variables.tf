@@ -19,3 +19,6 @@ variable "aws_dynamodb_table" {
 variable "vpc_cidr" {
   default = "10.20.0.0/16"
 }
+variable "subnet_cidr" {
+  default = "10.20.${count.index}.0/24"
+}
