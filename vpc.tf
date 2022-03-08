@@ -7,9 +7,9 @@
 
 resource "aws_vpc" "demo" {
   cidr_block = "10.20.0.0/16"
-
+  
   tags = tomap({
-    "Name"                                      = "dotpay-dev-demonode"
+    "Name" = "dotpay-dev-demonode"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared",
   })
 }
@@ -19,11 +19,11 @@ resource "aws_subnet" "demo" {
 
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   cidr_block              = "10.20.${count.index}.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   vpc_id                  = aws_vpc.demo.id
 
   tags = tomap({
-    "Name"                                      = "dotpay-dev-demonode"
+    "Name" = "dotpay-dev-demonode"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   })
 }
@@ -57,10 +57,10 @@ resource "aws_eip" "nat_eip" {
   depends_on = [aws_internet_gateway.demo]
 }
 resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat_eip.id
-  subnet_id     = element(aws_subnet.demo.*.id, 0)
+  allocation_id = "${aws_eip.nat_eip.id}"
+  subnet_id     = "${element(aws_subnet.demo.*.id, 0)}"
   depends_on    = [aws_internet_gateway.demo]
   tags = {
-    Name = "nat"
+    Name        = "nat"
   }
 }
