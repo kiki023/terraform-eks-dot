@@ -4,7 +4,6 @@
 
 provider "aws" {
   region = "us-west-1"
-  profile = "dotpay" # you may change to desired profile
   }
 
 # Using these data sources allows the configuration to be
