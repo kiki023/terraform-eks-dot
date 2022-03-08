@@ -15,3 +15,6 @@ variable "eks_node_instance_type" {
 variable "aws_dynamodb_table" {
   default = "dotpaydB"
 }
+
+variable "vpc_cidr" {
+  defaoult = "10.20.0.0/16"
