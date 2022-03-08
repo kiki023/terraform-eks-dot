@@ -17,7 +17,7 @@ resource "aws_vpc" "demo" {
 }
 
 resource "aws_subnet" "public" {
-  count                   = 2
+  count                   = "${length(var.subnet_cidr)}"
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   cidr_block              = "10.20.${count.index}.0/24"
   map_public_ip_on_launch = true
@@ -29,7 +29,7 @@ resource "aws_subnet" "public" {
   })
 }
 resource "aws_subnet" "private" {
-  count                   = 2
+  count                   = "${length(var.public_subnets_cidr)}"
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   cidr_block              = "${element(var.subnet_cidr, count.index)}"      #"10.20.${count.index}.0/24"
   map_public_ip_on_launch = false
