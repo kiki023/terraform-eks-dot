@@ -31,7 +31,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   count                   = 2
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = "10.20.${count.index}.0/24"
+  cidr_block              = "${element(var.subnet_cidr, count.index)}"      #"10.20.${count.index}.0/24"
   map_public_ip_on_launch = false
   vpc_id                  = "${aws_vpc.demo.id}"
 
@@ -79,9 +79,9 @@ resource "aws_route_table_association" "public" {
 
 
 resource "aws_route_table_association" "private" {
-  count = 2
+  count = "${length(var.subnet_cidr)}"
   subnet_id = aws_subnet.public.*.id[count.index]
-  route_table_id = aws_route_table.private[count.index]
+  route_table_id = aws_route_table.private.id
 }
   
   
