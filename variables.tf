@@ -9,7 +9,7 @@ variable "key_pair_name" {
   default = "dev-demo"
 }
 variable "eks_node_instance_type" {
-  default = "t3.large"
+  default = "m4.large"
 }
 
 variable "aws_dynamodb_table" {
