@@ -96,7 +96,7 @@ resource "aws_eks_node_group" "demo" {
   cluster_name    = aws_eks_cluster.demo.name
   node_group_name = "dotpay-dev-demonode"
   node_role_arn   = aws_iam_role.demo-node.arn
-  subnet_ids      = aws_subnet.demo[*].id
+  subnet_ids      = aws_subnet.private[*].id
   instance_types  = [var.eks_node_instance_type]
   remote_access {
     ec2_ssh_key = var.key_pair_name
