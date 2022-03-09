@@ -34,7 +34,7 @@ resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSServicePolicy" 
 }
 
 resource "aws_security_group" "demo-cluster" {
-  name        = "dotpay-dev-demo"
+  name        = "dotpay-dev-sg"
   description = "Cluster communication with worker nodes"
   vpc_id      = aws_vpc.demo.id
 
@@ -66,7 +66,7 @@ resource "aws_eks_cluster" "demo" {
 
   vpc_config {
     security_group_ids = [aws_security_group.demo-cluster.id]
-    subnet_ids         = aws_subnet.public[*].id
+    subnet_ids         = aws_subnet.private[*].id
   }
 
   depends_on = [
