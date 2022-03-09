@@ -4,7 +4,7 @@
 #
 
 resource "aws_iam_role" "demo-node" {
-  name = "dev-demo-node"
+  name = "dotpay-dev-demo-node"
 
   assume_role_policy = <<POLICY
 {
@@ -94,7 +94,7 @@ resource "aws_iam_role_policy_attachment" "demo-node-AmazonEC2ContainerRegistryR
 
 resource "aws_eks_node_group" "demo" {
   cluster_name    = aws_eks_cluster.demo.name
-  node_group_name = "dotpay-dev-demonode"
+  node_group_name = "demo"
   node_role_arn   = aws_iam_role.demo-node.arn
   subnet_ids      = aws_subnet.private[*].id
   instance_types  = [var.eks_node_instance_type]
