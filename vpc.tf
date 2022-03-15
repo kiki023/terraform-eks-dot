@@ -80,7 +80,7 @@ resource "aws_route_table_association" "public" {
 
 resource "aws_route_table_association" "private" {
   count = 2 #"${length(var.private_subnets_cidr)}"
-  subnet_id = aws_subnet.public.*.id[count.index]
+  subnet_id = aws_subnet.private.*.id[count.index]
   route_table_id = aws_route_table.private.id
 }
   
