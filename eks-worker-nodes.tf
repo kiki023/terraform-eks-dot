@@ -4,7 +4,7 @@
 #
 
 resource "aws_iam_role" "demo-node" {
-  name = "dotpay-dev-demo-node"
+  name = "dev-demo-node"
 
   assume_role_policy = <<POLICY
 {
